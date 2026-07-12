@@ -148,6 +148,7 @@ tr:hover{background:#eaf2f8}
   <button data-tab="tab4"><span class="tab-icon">⚠️</span>未领证</button>
   <button data-tab="tab5"><span class="tab-icon">🏥</span>杭州指南</button>
   <button data-tab="tab6"><span class="tab-icon">✅</span>待办清单</button>
+  <button data-tab="tab7"><span class="tab-icon">🏠</span>产房攻略</button>
 </nav>
 
 <!-- ===== Main Content ===== -->
@@ -688,6 +689,94 @@ tr:hover{background:#eaf2f8}
   <div style="text-align:center;margin-top:10px">
     <button onclick="resetChecklist()" style="padding:8px 20px;background:#e74c3c;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.85rem">重置所有勾选</button>
   </div>
+</div>
+
+<!-- ============ TAB 7: 产房攻略 ============ -->
+<div class="tab-content" id="tab7">
+
+  <div class="alert alert-info">
+    <strong>🏠 省妇保钱江院区产房全攻略</strong><br>
+    地址：萧山区济仁路368号 | 总机：0571-87061501 | 2022年底新开院区，设施新、人少、停车免费
+    <br><a href="https://audibleyin.github.io/pregnancy-plan/hospital_report.html" target="_blank" style="color:#2e6b8a;font-weight:700">📄 查看完整详细报告（新窗口打开）→</a>
+  </div>
+
+  <div class="card">
+    <div class="card-header">📅 预约时间线</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>孕周</th><th>日期</th><th>行动</th></tr></thead>
+        <tbody>
+          <tr class="highlight"><td>18-20周</td><td>10/5-10/18</td><td>🔴 建大卡于省妇保钱江院区，咨询一体化门诊</td></tr>
+          <tr><td>20周起</td><td>10/18起</td><td>关注公众号放号规律，准备抢一体化门诊号</td></tr>
+          <tr class="highlight"><td>28周起</td><td>12/7起</td><td>🔴 开始挂一体化门诊（600元/次），目标挂满6次</td></tr>
+          <tr><td>34-36周</td><td>1/17-2/6</td><td>确认一体化病房预约优先级</td></tr>
+          <tr><td>临产入院</td><td>3月初</td><td>告知医生一体化病房需求，预缴3万元</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">🏠 产房类型速览</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>类型</th><th>价格</th><th>数量</th><th>待产-分娩-产后全程</th><th>家属陪产</th><th>预约难度</th></tr></thead>
+        <tbody>
+          <tr><td><strong>一体化产房</strong></td><td>4800/5800/6800元/天</td><td>16间</td><td>✅ 全程同一房间</td><td>✅</td><td>🔴 高</td></tr>
+          <tr><td><strong>VIP温馨产房</strong></td><td>1800元/间</td><td>仅2间</td><td>❌ 仅分娩时</td><td>✅</td><td>🟡 中</td></tr>
+          <tr><td><strong>单人间</strong></td><td>2800元/天</td><td>3间</td><td>❌ 仅产后</td><td>❌</td><td>🟡 中</td></tr>
+          <tr><td><strong>双人间</strong></td><td>480元/天</td><td>较多</td><td>❌ 仅产后</td><td>❌</td><td>🟢 低</td></tr>
+        </tbody>
+      </table>
+      <div class="alert alert-warning" style="margin-top:10px">
+        <strong>⚠️ 关键区别：</strong>一体化产房 = 待产室+产房+产后病房三合一，全程不挪动；VIP产房仅在分娩时使用，待产和产后回病房。
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">💰 费用预估（顺产3天）</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>方案</th><th>总费用</th><th>自费部分</th><th>推荐度</th></tr></thead>
+        <tbody>
+          <tr><td>一体化产房</td><td>2.5-3.5万</td><td>1.8-2.5万</td><td>⭐⭐⭐⭐⭐</td></tr>
+          <tr class="highlight"><td>单人间+VIP产房</td><td>1.5-2万</td><td>1-1.5万</td><td>⭐⭐⭐⭐ 性价比最高</td></tr>
+          <tr><td>普通双人间</td><td>0.8-1.2万</td><td>0.3-0.5万</td><td>⭐⭐⭐</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">📋 一体化门诊预约</div>
+    <div class="card-body">
+      <ul>
+        <li><strong>挂号费</strong>：600元/次（自费），目标挂满6次</li>
+        <li><strong>渠道</strong>：微信公众号"浙江大学医学院附属妇产科医院" → 预约挂号 → 一体化门诊</li>
+        <li><strong>推荐专家</strong>：陈丹青、贺晶、韩秀君</li>
+        <li><strong>门诊优势</strong>：独立B超、胎监、抽血，无需排队</li>
+        <li><strong>注意</strong>：挂满6次≠100%保证入住，但优先级最高</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">🔄 备选方案</div>
+    <div class="card-body">
+      <ul>
+        <li><strong>首选</strong>：一体化产房（尽力抢）</li>
+        <li><strong>备选A</strong>：单人间 + VIP产房（1800元）→ 性价比最高，家属可陪产</li>
+        <li><strong>备选B</strong>：湖滨院区一体化 → 两院区互通，湖滨有22间</li>
+        <li><strong>保底</strong>：普通双人间 + 导乐服务（1680元）</li>
+      </ul>
+    </div>
+  </div>
+
+  <p style="text-align:center;margin:16px 0">
+    <a href="https://audibleyin.github.io/pregnancy-plan/hospital_report.html" target="_blank" class="btn" style="background:#2e6b8a;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;font-size:1rem;display:inline-block">📄 查看完整产房攻略报告 →</a>
+  </p>
+
 </div>
 
 </div><!-- /container -->
