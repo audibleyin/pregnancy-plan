@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孕期行动计划 — 杭州版</title>
+<style>
+/* ===== Reset & Base ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:#f0f4f8;color:#333;line-height:1.6;min-height:100vh}
+
+/* ===== Header ===== */
+.header{background:linear-gradient(135deg,#1a5276,#2e86c1);color:#fff;padding:24px 16px;text-align:center}
+.header h1{font-size:clamp(1.4rem,4vw,2rem);margin-bottom:8px}
+.header .info-bar{font-size:clamp(0.8rem,2vw,0.95rem);opacity:0.9;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px}
+.header .info-bar span{white-space:nowrap}
+.header .badge{display:inline-block;background:#e74c3c;color:#fff;padding:3px 10px;border-radius:12px;font-size:0.85rem;font-weight:700;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.7}}
+
+/* ===== Tab Navigation ===== */
+.tab-nav{position:sticky;top:0;z-index:100;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-nav button{flex:0 0 auto;padding:12px 16px;border:none;background:none;font-size:0.85rem;color:#666;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all 0.2s;font-family:inherit}
+.tab-nav button:hover{color:#2e86c1;background:#f0f8ff}
+.tab-nav button.active{color:#1a5276;border-bottom-color:#2e86c1;font-weight:700}
+.tab-nav button .tab-icon{display:block;font-size:1.2rem;margin-bottom:2px}
+
+/* ===== Main Content ===== */
+.container{max-width:1100px;margin:0 auto;padding:16px}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ===== Cards & Sections ===== */
+.card{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.08);margin-bottom:16px;overflow:hidden}
+.card-header{background:#2e86c1;color:#fff;padding:12px 16px;font-weight:700;font-size:1rem}
+.card-header.warn{background:#c0392b}
+.card-header.green{background:#27ae60}
+.card-header.orange{background:#e67e22}
+.card-body{padding:16px;overflow-x:auto}
+
+/* ===== Tables ===== */
+table{width:100%;border-collapse:collapse;font-size:0.85rem;min-width:700px}
+th,td{padding:8px 10px;border:1px solid #ddd;text-align:left;vertical-align:top}
+th{background:#2e86c1;color:#fff;font-weight:600;text-align:center;white-space:nowrap}
+tr:nth-child(even){background:#f8fafc}
+tr:hover{background:#eaf2f8}
+.row-urgent{background:#fff2cc!important}
+.row-urgent td{font-weight:600}
+.row-warning{background:#fce4d6!important}
+.row-green{background:#e2efda!important}
+
+/* ===== Highlight boxes ===== */
+.alert{padding:14px 16px;border-radius:8px;margin:12px 0;font-size:0.9rem}
+.alert-danger{background:#fdecea;border-left:4px solid #c0392b;color:#922b21}
+.alert-warning{background:#fef9e7;border-left:4px solid #e67e22;color:#7d6608}
+.alert-info{background:#eaf2f8;border-left:4px solid #2e86c1;color:#1a5276}
+.alert-success{background:#eafaf1;border-left:4px solid #27ae60;color:#145a32}
+
+/* ===== Info grid ===== */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.info-item{background:#f0f4f8;padding:12px;border-radius:8px;text-align:center}
+.info-item .label{font-size:0.8rem;color:#666;margin-bottom:4px}
+.info-item .value{font-size:1.1rem;font-weight:700;color:#1a5276}
+
+/* ===== Timeline ===== */
+.timeline-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #eee;align-items:flex-start}
+.timeline-item:last-child{border-bottom:none}
+.timeline-num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:#2e86c1;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700}
+.timeline-num.urgent{background:#c0392b}
+.timeline-num.important{background:#e67e22}
+.timeline-num.normal{background:#27ae60}
+.timeline-content{flex:1;min-width:0}
+.timeline-content .title{font-weight:700;font-size:0.9rem}
+.timeline-content .desc{font-size:0.82rem;color:#666;margin-top:2px}
+
+/* ===== Timing comparison ===== */
+.timing-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.timing-card{padding:14px;border-radius:8px;border:2px solid #ddd;text-align:center}
+.timing-card.best{border-color:#27ae60;background:#eafaf1}
+.timing-card.good{border-color:#2e86c1;background:#eaf2f8}
+.timing-card.bad{border-color:#e67e22;background:#fef9e7}
+.timing-card.worst{border-color:#c0392b;background:#fdecea}
+.timing-card h4{font-size:0.9rem;margin-bottom:6px}
+.timing-card .stars{font-size:1.2rem;margin:4px 0}
+.timing-card p{font-size:0.8rem;color:#666}
+
+/* ===== Checklist ===== */
+.checklist-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-bottom:1px solid #eee;font-size:0.88rem}
+.checklist-item:last-child{border-bottom:none}
+.checklist-item input[type="checkbox"]{margin-top:3px;flex-shrink:0;width:18px;height:18px;cursor:pointer}
+.checklist-item .urgent-tag{background:#c0392b;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75rem;font-weight:700;white-space:nowrap}
+.checklist-item .important-tag{background:#e67e22;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75rem;font-weight:700;white-space:nowrap}
+.checklist-item .normal-tag{background:#27ae60;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75rem;font-weight:700;white-space:nowrap}
+
+/* ===== Section title ===== */
+.section-title{font-size:1.1rem;font-weight:700;color:#1a5276;margin:16px 0 10px;padding-bottom:6px;border-bottom:2px solid #2e86c1}
+.section-subtitle{font-size:0.9rem;font-weight:600;color:#555;margin:10px 0 6px}
+
+/* ===== Footer ===== */
+.footer{text-align:center;padding:24px;font-size:0.8rem;color:#999}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  .tab-nav button{padding:10px 12px;font-size:0.78rem}
+  .tab-nav button .tab-icon{font-size:1rem}
+  .card-body{padding:10px}
+  th,td{padding:6px 8px;font-size:0.78rem}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+  .timing-cards{grid-template-columns:1fr}
+  .header{padding:16px 10px}
+}
+
+@media(max-width:480px){
+  .info-grid{grid-template-columns:1fr}
+  .tab-nav button{padding:8px 10px;font-size:0.72rem}
+}
+
+/* ===== Print ===== */
+@media print{
+  .tab-nav{position:static}
+  .tab-content{display:block!important;page-break-before:always}
+  .tab-content:first-of-type{page-break-before:avoid}
+  .header{background:#1a5276!important;-webkit-print-color-adjust:exact}
+  .card{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="header">
+  <h1>📋 孕期行动计划 — 杭州版</h1>
+  <div class="info-bar">
+    <span>末次月经：<strong>2026年5月31日</strong></span>
+    <span>预产期：<strong>2027年3月7日</strong></span>
+    <span>当前孕周：<strong>6周+0天</strong></span>
+    <span class="badge">⚠️ 尚未领证</span>
+  </div>
+</header>
+
+<!-- ===== Tab Navigation ===== -->
+<nav class="tab-nav" id="tabNav">
+  <button class="active" data-tab="tab0"><span class="tab-icon">📅</span>总览表</button>
+  <button data-tab="tab1"><span class="tab-icon">🤰</span>孕早期</button>
+  <button data-tab="tab2"><span class="tab-icon">👶</span>孕中期</button>
+  <button data-tab="tab3"><span class="tab-icon">🍼</span>孕晚期</button>
+  <button data-tab="tab4"><span class="tab-icon">⚠️</span>未领证</button>
+  <button data-tab="tab5"><span class="tab-icon">🏥</span>杭州指南</button>
+  <button data-tab="tab6"><span class="tab-icon">✅</span>待办清单</button>
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="container">
+
+<!-- ============ TAB 0: 总览表 ============ -->
+<div class="tab-content active" id="tab0">
+
+  <div class="info-grid" style="margin-bottom:12px">
+    <div class="info-item"><div class="label">末次月经</div><div class="value">2026年5月31日</div></div>
+    <div class="info-item"><div class="label">当前孕周</div><div class="value">6周+0天（第7周）</div></div>
+    <div class="info-item"><div class="label">预产期</div><div class="value">2027年3月7日</div></div>
+    <div class="info-item"><div class="label">当前阶段</div><div class="value">孕早期</div></div>
+    <div class="info-item"><div class="label">所在城市</div><div class="value">浙江省杭州市</div></div>
+    <div class="info-item"><div class="label">婚姻状态</div><div class="value" style="color:#c0392b">⚠️ 尚未领证</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">📅 关键里程碑时间线</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>序号</th><th>事项</th><th>孕周</th><th>建议日期</th><th>紧急程度</th><th>备注</th></tr></thead>
+        <tbody>
+          <tr class="row-urgent">
+            <td>1</td><td>🔴 领结婚证</td><td>6-7周</td><td>7月12日-7月25日</td><td>🔴 紧急</td><td>影响建档、生育登记、生育保险报销。建议本周内完成！</td>
+          </tr>
+          <tr class="row-urgent">
+            <td>2</td><td>🔴 首次B超确认妊娠</td><td>6-8周</td><td>7月12日-7月26日</td><td>🔴 紧急</td><td>确认宫内孕、胎心胎芽、孕周及胚胎数量</td>
+          </tr>
+          <tr class="row-warning">
+            <td>3</td><td>🟡 建小卡（社区医院）</td><td>8-12周</td><td>7月26日-8月23日</td><td>🟡 重要</td><td>到居住地社区卫生服务中心办理《母子健康手册》</td>
+          </tr>
+          <tr class="row-warning">
+            <td>4</td><td>🟡 NT检查+早唐筛查</td><td>11-13周+6</td><td>8月9日-8月30日</td><td>🟡 重要</td><td>需提前预约！早期排畸+唐氏筛查</td>
+          </tr>
+          <tr class="row-warning">
+            <td>5</td><td>🟡 建大卡（生产医院）</td><td>18-20周</td><td>10月5日-10月18日</td><td>🟡 重要</td><td>到计划生产的医院建档</td>
+          </tr>
+          <tr class="row-warning">
+            <td>6</td><td>🟡 大排畸（系统超声）</td><td>20-24周</td><td>10月18日-11月15日</td><td>🟡 重要</td><td>最重要B超！需提前预约</td>
+          </tr>
+          <tr class="row-warning">
+            <td>7</td><td>🟡 糖耐量测试（OGTT）</td><td>24-28周</td><td>11月15日-12月13日</td><td>🟡 重要</td><td>妊娠期糖尿病筛查，需空腹</td>
+          </tr>
+          <tr>
+            <td>8</td><td>🟢 小排畸</td><td>28-32周</td><td>12月13日-2027年1月10日</td><td>🟢 常规</td><td>监测胎儿生长发育</td>
+          </tr>
+          <tr>
+            <td>9</td><td>🟢 足月评估</td><td>37周</td><td>2027年2月14日前后</td><td>🟢 常规</td><td>评估分娩方式</td>
+          </tr>
+          <tr>
+            <td>10</td><td>🟢 预产期</td><td>40周</td><td>2027年3月7日</td><td>🟢 准备</td><td>随时准备待产</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB 1: 孕早期 ============ -->
+<div class="tab-content" id="tab1">
+
+  <div class="alert alert-danger">
+    <strong>🔴 第一优先级：领结婚证（当前最紧急！）</strong><br>
+    建议2026年7月12日-7月25日（本周内）完成领证。越早越好，最迟不晚于建档前（8-12周）。
+  </div>
+
+  <div class="card">
+    <div class="card-header warn">🔴 领证行动指南</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>事项</th><th>详细说明</th><th>杭州办理指引</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>领证时间</strong></td>
+            <td>
+              <div>建议<strong>2026年7月12日-7月25日</strong>（本周内），越早越好，最迟不晚于建档前（8-12周）。</div>
+              <div style="margin-top:10px;padding:10px;background:#fff9e6;border-radius:6px;border-left:3px solid #e67e22">
+                <strong>📅 【黄道吉日推荐】以下为7/12-8/23期间「宜嫁娶」吉日：</strong><br><br>
+                <span style="color:#c0392b;font-weight:700">★ 7月16日（周四）农历六月初三 ⭐推荐最佳！</span><br>
+                <small>宜：嫁娶、祭祀、祈福、出行、交易 | 冲：鸡</small><br><br>
+                ★ 7月20日（周一）农历六月初七<br>
+                <small>宜：嫁娶、纳采、订盟、祭祀、祈福 | 冲：牛</small><br><br>
+                ★ 7月23日（周四）农历六月初十<br>
+                <small>宜：嫁娶、祭祀、祈福、求嗣、开光 | 冲：龙</small><br><br>
+                ★ 7月28日（周二）农历六月十五（月圆之日）<br>
+                <small>宜：嫁娶、纳采、订盟、祭祀、祈福 | 冲：鸡</small><br><br>
+                ★ 7月29日（周三）农历六月十六<br>
+                <small>宜：嫁娶、祭祀、祈福、求嗣、出行 | 冲：狗</small><br><br>
+                ★ 8月2日（周日）农历六月二十<br>
+                <small>宜：嫁娶、纳采、订盟、祭祀、祈福 | 冲：虎 ⚠️周日</small><br><br>
+                ★ 8月9日（周日）农历六月廿七<br>
+                <small>宜：嫁娶、祭祀、祈福、求嗣、开光 | 冲：鸡 ⚠️周日</small><br><br>
+                ★ 8月12日（周三）农历六月三十<br>
+                <small>宜：嫁娶、祭祀、祈福、求嗣、出行 | 冲：鼠</small><br><br>
+                ★ 8月16日（周日）农历七月初四<br>
+                <small>宜：嫁娶、纳采、订盟、开光、出行 | 冲：龙 ⚠️周日</small><br><br>
+                ★ 8月21日（周五）农历七月初九<br>
+                <small>宜：嫁娶、开光、祭祀、祈福、求嗣 | 冲：鸡</small><br><br>
+                ★ 8月23日（周日）农历七月十一<br>
+                <small>宜：嫁娶、祭祀、祈福、求嗣、裁衣 | 冲：猪 ⚠️周日</small>
+              </div>
+              <div style="margin-top:6px;padding:8px;background:#eafaf1;border-radius:6px">
+                💡 <strong>推荐7月16日（周四）为最佳领证日期：</strong>最早吉日+工作日+留足建档准备时间
+              </div>
+            </td>
+            <td>
+              浙里办APP预约 → 搜索"婚姻登记预约"<br>
+              杭州工作日登记处均开放<br>
+              部分周六上午开放（需提前确认）<br>
+              周日一般不开放！<br>
+              周日吉日请提前电话核实<br><br>
+              ⚠️ <strong>推荐7月16日</strong>：工作日+最早吉日<br>
+              领证后还有1-2周准备建小卡
+            </td>
+          </tr>
+          <tr>
+            <td><strong>领证地点</strong></td>
+            <td>杭州任意区民政局婚姻登记处（可就近选择，不限制户籍所在区）</td>
+            <td>上城区、拱墅区、西湖区、滨江区、萧山区、余杭区、临平区、钱塘区、富阳区、临安区及各县市</td>
+          </tr>
+          <tr>
+            <td><strong>所需材料</strong></td>
+            <td>1.双方身份证原件<br>2.双方户口本原件<br>3.3张2寸红底合照（可现场拍）<br>4.如为再婚，需携带离婚证或相关证明</td>
+            <td>建议提前在"浙里办"APP预约<br>双方均为非杭州户籍的，需提供一方杭州居住证</td>
+          </tr>
+          <tr>
+            <td><strong>预约方式</strong></td>
+            <td>浙里办APP → 搜索"婚姻登记预约" → 选择日期和登记处</td>
+            <td>也可通过"杭州民政"微信公众号预约</td>
+          </tr>
+          <tr>
+            <td><strong>领证后立即办理</strong></td>
+            <td>1.更新户口本婚姻状况<br>2.确认女方生育保险状态<br>3.确认男方生育保险状态</td>
+            <td>浙里办可查询社保缴纳记录</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">📋 孕早期产检与行动清单</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>孕周</th><th>日期范围</th><th>检查/行动项目</th><th>目的</th><th>准备事项</th><th>杭州特别提醒</th></tr></thead>
+        <tbody>
+          <tr><td>0-5周</td><td>5/31-7/4</td><td>自行验孕</td><td>确认怀孕</td><td>验孕棒/早孕试纸</td><td>—</td></tr>
+          <tr class="row-urgent">
+            <td>6-8周</td><td>7/12-7/26</td><td>🔴 首次B超（阴超/腹超）<br>🔴 抽血：HCG、孕酮、甲功</td><td>确认宫内孕、胎心胎芽<br>评估胚胎发育情况</td><td>可挂妇科或产科<br>阴超无需憋尿，腹超需憋尿<br>建议上午空腹前往</td><td>杭州推荐医院：<br>省妇保、市妇产科医院<br>或离家近的三甲医院产科</td>
+          </tr>
+          <tr class="row-urgent">
+            <td>6-7周</td><td>7/12-7/25</td><td>🔴 领结婚证</td><td>—</td><td>见上方领证指引</td><td>浙里办APP预约</td>
+          </tr>
+          <tr class="row-warning">
+            <td>8-12周</td><td>7/26-8/23</td><td>🟡 建小卡<br>🟡 全面体检</td><td>建立《母子健康手册》<br>血常规、血型、肝肾功<br>乙肝/梅毒/HIV、心电图</td><td>需空腹！带食物<br>携带：身份证+结婚证<br>+早孕B超单<br>建议家人陪同</td><td>到居住地社区卫生服务中心<br>杭州部分社区支持线上预约</td>
+          </tr>
+          <tr class="row-warning">
+            <td>8-12周</td><td>7/26-8/23</td><td>🟡 生育登记（原准生证）</td><td>合法生育必需<br>影响后续医保报销</td><td>浙里办APP → 搜索"生育登记"<br>提交：身份证+结婚证+户口本</td><td>浙江省已简化为"生育登记"<br>线上办理，无需跑腿<br>已婚即办即出</td>
+          </tr>
+          <tr class="row-warning">
+            <td>11-13周+6</td><td>8/9-8/30</td><td>🟡 NT检查（B超）<br>🟡 早期唐筛（抽血）</td><td>早期排畸+唐氏筛查<br>测量颈后透明带厚度</td><td>需提前2-3周预约！<br>NT检查有时间窗口限制<br>错过了无法补做</td><td>NT需在11-13周+6之间做<br>大医院B超号源紧张<br>建议建小卡时就预约</td>
+          </tr>
+          <tr><td>孕早期全程</td><td>5/31-8/30</td><td>每日补充叶酸<br>（至少0.4mg/天）</td><td>预防胎儿神经管畸形</td><td>药店购买叶酸片<br>或含叶酸的复合维生素</td><td>杭州社区医院可免费领取叶酸<br>建小卡时咨询</td></tr>
+          <tr><td>孕早期全程</td><td>5/31-8/30</td><td>如有腹痛/出血<br>立即就医</td><td>排除宫外孕、先兆流产</td><td>记录症状发生时间和严重程度</td><td>省妇保急诊24小时开放<br>地址：上城区学士路1号</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB 2: 孕中期 ============ -->
+<div class="tab-content" id="tab2">
+
+  <div class="alert alert-info">
+    <strong>📌 孕中期（14周 - 27周+6）| 2026年8月31日 — 2026年12月6日</strong><br>
+    孕中期相对舒适，适合安排孕期课程。注意营养均衡，开始感知胎动（通常16-20周开始）。
+  </div>
+
+  <div class="card">
+    <div class="card-header">📋 孕中期产检与行动清单</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>孕周</th><th>日期范围</th><th>检查/行动项目</th><th>目的</th><th>准备事项</th><th>杭州特别提醒</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>15-20周</td><td>9/13-10/18</td><td>中期唐氏筛查<br>（如早唐已做可不做）</td><td>评估唐氏综合征风险</td><td>空腹抽血</td><td>如早唐+NT已做且结果正常，中唐可省略</td>
+          </tr>
+          <tr>
+            <td>16-22周</td><td>9/20-11/1</td><td>无创DNA（NIPT）<br>（自费项目，可选）</td><td>高精度检测染色体异常<br>（21/18/13三体）</td><td>无需空腹，单纯抽血即可<br>费用约1500-2500元</td><td>适用于：唐筛高危、35岁以上<br>或有需求的孕妇<br>杭州三甲医院均可做</td>
+          </tr>
+          <tr class="row-warning">
+            <td>18-20周</td><td>10/5-10/18</td><td>🟡 建大卡<br>（生产医院建档）</td><td>在计划分娩的医院<br>建立正式产检档案</td><td>携带：身份证、结婚证<br>小卡、所有检查报告<br>选定生产医院</td><td>建议选择：省妇保、市妇产科医院<br>或离家近的三甲医院<br>热门医院号源紧张，尽早办理</td>
+          </tr>
+          <tr class="row-urgent">
+            <td>20-24周</td><td>10/18-11/15</td><td>🔴 大排畸<br>（系统超声筛查）</td><td>最重要B超！<br>全面检查胎儿结构<br>头部、心脏、四肢、内脏</td><td>需提前2-4周预约！<br>检查时间较长（约30-60分钟）<br>宝宝位置不好可能需要多次</td><td>杭州大排畸非常紧张！<br>建议建大卡时同步预约<br>省妇保通常需提前1个月</td>
+          </tr>
+          <tr class="row-urgent">
+            <td>24-28周</td><td>11/15-12/13</td><td>🔴 糖耐量测试（OGTT）</td><td>妊娠期糖尿病筛查<br>非常重要！</td><td>检查前一晚8点后禁食禁水<br>检查当日空腹，喝糖水<br>1小时、2小时后各抽一次血<br>全程需约3小时</td><td>建议早到医院（7:30前）<br>自带水杯<br>可带食物，检查后立即吃<br>杭州各医院流程略有不同</td>
+          </tr>
+          <tr><td>全程</td><td>8/31-12/6</td><td>常规产检（每4周一次）</td><td>血常规、尿常规<br>体重、血压、宫高腹围</td><td>每次产检带好检查单</td><td>按时产检，不要漏</td></tr>
+          <tr><td>16-20周</td><td>9/20-10/18</td><td>开始感知胎动</td><td>胎儿活动信号</td><td>记录首次胎动时间<br>（通常16-20周开始）</td><td>如20周后仍未感知胎动需告知医生</td></tr>
+          <tr><td>全程</td><td>8/31-12/6</td><td>均衡营养、适当运动</td><td>控制体重增长<br>避免妊娠并发症</td><td>正常体重孕妇<br>孕期增重11-16kg为宜</td><td>杭州社区医院有孕期营养课<br>可咨询参加</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB 3: 孕晚期 ============ -->
+<div class="tab-content" id="tab3">
+
+  <div class="alert alert-info">
+    <strong>📌 孕晚期（28周 - 分娩）| 2026年12月7日 — 2027年3月7日</strong><br>
+    准备待产包，熟悉临产征兆（见红、规律宫缩、破水）。左侧卧位有助于改善胎盘供氧。
+  </div>
+
+  <div class="card">
+    <div class="card-header">📋 孕晚期产检与行动清单</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>孕周</th><th>日期范围</th><th>检查/行动项目</th><th>目的</th><th>准备事项</th><th>杭州特别提醒</th></tr></thead>
+        <tbody>
+          <tr><td>28-32周</td><td>12/13-1/10</td><td>B超检查（小排畸）<br>血常规、尿常规</td><td>监测胎儿生长发育<br>排除晚期畸形<br>评估胎位、羊水、胎盘</td><td>正常产检准备</td><td>杭州医保可报销</td></tr>
+          <tr class="row-urgent">
+            <td>28周起</td><td>12/7起</td><td>🔴 每日胎动计数<br>（非常重要！）</td><td>自行监测胎儿宫内状况<br>早、中、晚各数1小时<br>3次之和×4 > 30次为正常</td><td>准备胎动记录本<br>异常增多或减少立即就医</td><td>杭州医院急诊24小时开放<br>异常情况不要等待</td>
+          </tr>
+          <tr><td>28周</td><td>12/7-12/13</td><td>乙肝抗原检查（需空腹）</td><td>乙肝筛查</td><td>空腹</td><td>—</td></tr>
+          <tr><td>30周起</td><td>12/21起</td><td>胎心监护（NST）<br>通常每2周一次</td><td>评估胎儿宫内储备能力和健康状况</td><td>自备胎心监护带（两条）<br>检查前可适当走动、进食<br>帮助宝宝活跃</td><td>杭州医院一般提供监护带<br>但建议自备更卫生<br>可在医院租用家庭监护仪</td></tr>
+          <tr><td>33-36周</td><td>1/10-2/6</td><td>产前检查（每周/每两周一次）<br>B族链球菌筛查（GBS）</td><td>GBS筛查预防新生儿感染<br>评估分娩准备情况</td><td>GBS筛查约35-37周做<br>阴道+直肠拭子</td><td>—</td></tr>
+          <tr><td>34周</td><td>1/17-1/23</td><td>胎儿体重评估</td><td>预测胎儿大小<br>评估分娩方式</td><td>B超可能存在10%-15%误差<br>若胎儿过大<br>医生可能建议剖腹产</td><td>—</td></tr>
+          <tr class="row-warning">
+            <td>37周</td><td>2/14-2/20</td><td>🔴 足月B超+全面评估</td><td>评估胎儿大小、胎位<br>羊水、胎盘成熟度<br>脐带血流、骨盆条件<br>初步预测分娩方式</td><td>做好待产准备<br>确定分娩医院</td><td>杭州医院床位紧张<br>建议提前确认分娩医院<br>了解入院流程</td>
+          </tr>
+          <tr class="row-warning">
+            <td>38-40周</td><td>2/21-3/7</td><td>每周例行产检<br>胎心监护<br>测量宫高腹围<br>评估宫颈条件</td><td>随时准备待产</td><td>准备待产包<br>熟悉临产征兆<br>见红、规律宫缩、破水</td><td>提前了解医院入院流程<br>夜间急诊入口<br>生产所需证件：<br>夫妻身份证+结婚证+生育登记</td>
+          </tr>
+          <tr><td>40周+</td><td>3/7后</td><td>加强监测<br>每3天或按医嘱<br>可能需要住院引产</td><td>超期妊娠管理</td><td>遵从医嘱</td><td>—</td></tr>
+          <tr class="row-warning">
+            <td>34周起</td><td>1/17起</td><td>🔴 准备待产包</td><td>—</td><td>妈妈用品：产褥垫、卫生巾<br>哺乳内衣、出院衣物<br>宝宝用品：衣服、包被、尿不湿<br>证件类：身份证、结婚证<br>生育登记单、产检档案</td><td>杭州医院一般提供待产包清单<br>可提前咨询产科护士站</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB 4: 未领证特别注意事项 ============ -->
+<div class="tab-content" id="tab4">
+
+  <div class="alert alert-danger">
+    <strong>🔴 核心结论：建议尽快领证！最迟不晚于8-12周建小卡前。</strong><br>
+    未领证可能导致：建档受阻、生育保险无法使用、生育津贴无法申领、出生证明办理困难、孩子落户复杂。
+  </div>
+
+  <div class="card">
+    <div class="card-header">📌 领证最佳时机分析</div>
+    <div class="card-body">
+      <div class="timing-cards">
+        <div class="timing-card best">
+          <h4>方案A：立即领证（推荐！）</h4>
+          <p style="font-size:0.82rem">2026年7月12日-7月25日（本周内，孕6-7周）</p>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p>✅ 所有手续不受影响<br>✅ 建档、生育登记、保险顺畅<br>✅ 无需额外材料<br>✅ 生育津贴正常申领<br>✅ 无明显缺点</p>
+        </div>
+        <div class="timing-card good">
+          <h4>方案B：建档前领证</h4>
+          <p style="font-size:0.82rem">2026年7月26日-8月23日（孕8-12周）</p>
+          <div class="stars">⭐⭐⭐⭐</div>
+          <p>✅ 仍可正常建档<br>✅ 不影响后续手续<br>⚠️ 时间较紧<br>⚠️ 建小卡可能略有延迟</p>
+        </div>
+        <div class="timing-card bad">
+          <h4>方案C：建大卡前领证</h4>
+          <p style="font-size:0.82rem">2026年10月5日前（孕18-20周前）</p>
+          <div class="stars">⭐⭐</div>
+          <p>❌ 建小卡可能受阻<br>❌ 生育登记延迟<br>❌ 可能影响部分检查报销<br>✅ 生产医院可正常建档</p>
+        </div>
+        <div class="timing-card worst">
+          <h4>方案D：分娩前领证</h4>
+          <p style="font-size:0.82rem">2027年3月7日前</p>
+          <div class="stars">⭐</div>
+          <p>❌ 建档全程受阻<br>❌ 生育保险无法使用<br>❌ 分娩费用全额自费<br>❌ 生育津贴可能无法申领<br>❌ 出生证明办理复杂<br>❌ 孩子落户困难</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">⚠️ 未领证对各事项的具体影响</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>事项</th><th>未领证的影响</th><th>领证后解决</th><th>杭州/浙江特殊政策</th></tr></thead>
+        <tbody>
+          <tr class="row-urgent">
+            <td><strong>建小卡</strong></td>
+            <td>部分地区可能不强制要求结婚证<br>但多数社区医院建档需要<br>未领证可能被拒或流程复杂</td>
+            <td>领证后正常办理<br>携带：身份证+结婚证+早孕B超单</td>
+            <td>杭州部分社区较为灵活<br>建议提前电话咨询目标社区卫生服务中心</td>
+          </tr>
+          <tr class="row-urgent">
+            <td><strong>建大卡</strong></td>
+            <td>绝大多数医院建档需要结婚证<br>未领证无法正常建档</td>
+            <td>领证后正常办理</td>
+            <td>杭州三甲医院通常严格要求<br>省妇保、市妇产科医院均需结婚证</td>
+          </tr>
+          <tr class="row-urgent">
+            <td><strong>生育登记</strong></td>
+            <td>未领证无法办理传统生育登记<br>可能影响后续所有手续</td>
+            <td>浙里办APP线上办理<br>已婚即办即出</td>
+            <td>浙江2022年起简化生育登记<br>但仍需结婚证<br>线上办理方便快捷</td>
+          </tr>
+          <tr class="row-warning">
+            <td><strong>生育保险报销</strong></td>
+            <td>未领证：女方生育保险<br>可能无法正常使用<br>分娩费用需全额自费</td>
+            <td>领证+生育登记后<br>可正常享受生育保险<br>分娩费用直接结算报销</td>
+            <td>杭州生育保险报销条件：<br>连续缴纳满12个月（含生育当月）<br>建议立即查询社保缴纳情况</td>
+          </tr>
+          <tr class="row-warning">
+            <td><strong>生育津贴</strong></td>
+            <td>未领证无法申领生育津贴<br>（杭州约1.5-3万元不等）</td>
+            <td>领证+生育登记后<br>产后通过浙里办申领<br>按单位上年度月平均工资计算</td>
+            <td>杭州生育津贴计算：<br>单位上年度月平均工资÷30×产假天数<br>产假：顺产128天，剖腹产+15天</td>
+          </tr>
+          <tr class="row-warning">
+            <td><strong>出生证明</strong></td>
+            <td>未领证：出生证明上<br>"父亲"栏可能无法填写<br>或需做亲子鉴定</td>
+            <td>领证后正常办理<br>父母双方信息完整</td>
+            <td>杭州医院分娩后直接在产科办理<br>需双方身份证+结婚证</td>
+          </tr>
+          <tr class="row-warning">
+            <td><strong>孩子户口</strong></td>
+            <td>非婚生子女可上户口<br>但流程复杂：需亲子鉴定<br>+派出所审批，耗时更长</td>
+            <td>领证后正常办理<br>凭出生证明+结婚证+户口本<br>到派出所即可</td>
+            <td>杭州户籍政策：<br>婚生子女凭出生证明+结婚证<br>可直接落户，无需额外材料</td>
+          </tr>
+          <tr>
+            <td><strong>少儿医保</strong></td>
+            <td>未领证：可能影响少儿医保办理</td>
+            <td>出生后尽快办理<br>杭州少儿医保每年约300元</td>
+            <td>杭州少儿医保：出生后90天内办理<br>可追溯报销出生时费用<br>浙里办可线上办理</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB 5: 杭州办事指南 ============ -->
+<div class="tab-content" id="tab5">
+
+  <div class="card">
+    <div class="card-header">🏥 杭州本地政策与办事指南</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>类别</th><th>事项</th><th>办理渠道/地点</th><th>详细说明</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>结婚登记</strong></td>
+            <td>领结婚证</td>
+            <td>浙里办APP预约<br>杭州各区民政局婚姻登记处</td>
+            <td>预约：浙里办→搜索"婚姻登记预约"<br>材料：双方身份证+户口本+3张2寸合照<br>工作日均可办理，部分登记处周六开放<br>杭州已实现全市通办，可就近选择</td>
+          </tr>
+          <tr>
+            <td><strong>生育登记</strong></td>
+            <td>生育登记（原准生证）</td>
+            <td>浙里办APP → 搜索"生育登记"</td>
+            <td>浙江已简化为"生育登记"<br>全程线上办理，无需跑腿<br>提交材料：身份证+结婚证+户口本<br>审核通过后生成电子登记单<br>打印备用即可</td>
+          </tr>
+          <tr>
+            <td><strong>建小卡</strong></td>
+            <td>《母子健康手册》</td>
+            <td>居住地社区卫生服务中心</td>
+            <td>杭州各社区卫生服务中心均可办理<br>如：文晖街道社区卫生服务中心<br>天水武林街道社区卫生服务中心等<br>咨询电话可在"浙里办"查询<br>建议提前电话确认所需材料</td>
+          </tr>
+          <tr>
+            <td><strong>建大卡</strong></td>
+            <td>生产医院建档</td>
+            <td>计划分娩的医院产科</td>
+            <td>杭州推荐医院：<br>1.省妇保（上城区学士路1号）<br>2.市妇产科医院（上城区鲲鹏路369号）<br>3.浙大一院、浙大二院<br>4.杭州市第一人民医院<br>热门医院号源紧张，尽早办理</td>
+          </tr>
+          <tr>
+            <td><strong>生育保险</strong></td>
+            <td>生育医疗费用报销</td>
+            <td>医院直接结算或浙里办APP</td>
+            <td>杭州生育保险报销条件：<br>连续缴纳生育保险满12个月（含生育当月）<br>分娩费用在医院直接结算报销<br>产检费用需保留发票，后续报销<br>男方生育保险也可用于未就业配偶</td>
+          </tr>
+          <tr>
+            <td><strong>生育津贴</strong></td>
+            <td>生育津贴申领</td>
+            <td>浙里办APP → 搜索"生育津贴"</td>
+            <td>产后通过浙里办申领<br>计算方式：单位上年度月平均工资÷30×产假天数<br>产假：顺产128天，剖腹产+15天，多胞胎+15天/胎<br>杭州生育津贴标准约1.5-3万元<br>申领时限：产后1年内</td>
+          </tr>
+          <tr>
+            <td><strong>出生证明</strong></td>
+            <td>《出生医学证明》</td>
+            <td>分娩医院产科</td>
+            <td>分娩后直接在产科办理<br>需：父母双方身份证原件+结婚证<br>建议产后1个月内办理<br>杭州已实现出生"一件事"联办<br>可同步办理出生证明+户口+医保</td>
+          </tr>
+          <tr>
+            <td><strong>户口登记</strong></td>
+            <td>孩子落户</td>
+            <td>父母户籍所在地派出所<br>或浙里办APP</td>
+            <td>杭州出生"一件事"联办<br>凭出生证明+结婚证+户口本<br>可直接落户，无需额外材料<br>浙里办可线上办理</td>
+          </tr>
+          <tr>
+            <td><strong>少儿医保</strong></td>
+            <td>少儿医保</td>
+            <td>浙里办APP或社区服务中心</td>
+            <td>杭州少儿医保：每年约300元<br>出生后90天内办理<br>可追溯报销出生时费用<br>浙里办→搜索"少儿医保"</td>
+          </tr>
+          <tr>
+            <td><strong>必备APP</strong></td>
+            <td>下载以下工具</td>
+            <td>应用商店</td>
+            <td>1.浙里办（办事必备）<br>2.杭州健康通（挂号预约）<br>3.各医院自有APP（省妇保、市妇保等）<br>建议提前下载并注册</td>
+          </tr>
+          <tr>
+            <td><strong>紧急联系</strong></td>
+            <td>急诊热线</td>
+            <td>—</td>
+            <td>省妇保急诊：0571-87061501<br>杭州市妇产科医院急诊：0571-56005555<br>急救电话：120<br>建议提前保存到手机通讯录</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB 6: 待办事项Checklist ============ -->
+<div class="tab-content" id="tab6">
+
+  <div class="alert alert-info">
+    <strong>✅ 孕期待办事项Checklist（按紧急程度排序）</strong><br>
+    点击复选框标记完成，刷新后状态会保留。
+  </div>
+
+  <div class="card">
+    <div class="card-header">📋 待办清单</div>
+    <div class="card-body" style="padding:0">
+      <div class="checklist-item">
+        <input type="checkbox" id="todo1" onchange="saveChecklist()">
+        <span class="urgent-tag">🔴 紧急</span>
+        <div><strong>预约结婚登记（浙里办APP）</strong><br><small>截止：2026年7月12日-13日 | 立即行动！</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo2" onchange="saveChecklist()">
+        <span class="urgent-tag">🔴 紧急</span>
+        <div><strong>完成领证</strong><br><small>截止：2026年7月25日前 | 最迟不晚于8月23日（建小卡前）</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo3" onchange="saveChecklist()">
+        <span class="urgent-tag">🔴 紧急</span>
+        <div><strong>预约首次B超（确认妊娠）</strong><br><small>截止：2026年7月12日-13日 | 杭州健康通或医院APP预约</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo4" onchange="saveChecklist()">
+        <span class="urgent-tag">🔴 紧急</span>
+        <div><strong>首次B超检查</strong><br><small>截止：2026年7月12日-7月26日 | 确认宫内孕、胎心胎芽</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo5" onchange="saveChecklist()">
+        <span class="urgent-tag">🔴 紧急</span>
+        <div><strong>查询双方社保/生育保险缴纳状态</strong><br><small>截止：2026年7月 | 浙里办可查</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo6" onchange="saveChecklist()">
+        <span class="important-tag">🟡 重要</span>
+        <div><strong>办理生育登记（浙里办）</strong><br><small>领证后立即办理 | 线上办理，即时出证</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo7" onchange="saveChecklist()">
+        <span class="important-tag">🟡 重要</span>
+        <div><strong>联系社区医院，确认建小卡材料</strong><br><small>截止：2026年7月20日-25日 | 提前电话咨询</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo8" onchange="saveChecklist()">
+        <span class="important-tag">🟡 重要</span>
+        <div><strong>建小卡（社区医院）</strong><br><small>截止：2026年7月26日-8月23日 | 需空腹，家人陪同</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo9" onchange="saveChecklist()">
+        <span class="important-tag">🟡 重要</span>
+        <div><strong>预约NT检查</strong><br><small>截止：2026年7月底-8月初 | 提前2-3周预约</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo10" onchange="saveChecklist()">
+        <span class="important-tag">🟡 重要</span>
+        <div><strong>NT检查+早唐筛查</strong><br><small>截止：2026年8月9日-8月30日 | 孕11-13周+6，不可错过</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo11" onchange="saveChecklist()">
+        <span class="important-tag">🟡 重要</span>
+        <div><strong>建大卡（选定生产医院）</strong><br><small>截止：2026年10月5日-10月18日 | 孕18-20周</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo12" onchange="saveChecklist()">
+        <span class="important-tag">🟡 重要</span>
+        <div><strong>预约大排畸</strong><br><small>截止：2026年9月底-10月初 | 提前2-4周预约，最紧张！</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo13" onchange="saveChecklist()">
+        <span class="important-tag">🟡 重要</span>
+        <div><strong>大排畸检查</strong><br><small>截止：2026年10月18日-11月15日 | 孕20-24周，最重要B超</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo14" onchange="saveChecklist()">
+        <span class="important-tag">🟡 重要</span>
+        <div><strong>糖耐量测试（OGTT）</strong><br><small>截止：2026年11月15日-12月13日 | 孕24-28周，需空腹</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo15" onchange="saveChecklist()">
+        <span class="normal-tag">🟢 常规</span>
+        <div><strong>下载并注册浙里办APP</strong><br><small>随时 | 办事必备</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo16" onchange="saveChecklist()">
+        <span class="normal-tag">🟢 常规</span>
+        <div><strong>下载杭州健康通APP</strong><br><small>随时 | 挂号预约</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo17" onchange="saveChecklist()">
+        <span class="normal-tag">🟢 常规</span>
+        <div><strong>准备待产包</strong><br><small>2027年1月中旬起 | 孕34周开始准备</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo18" onchange="saveChecklist()">
+        <span class="normal-tag">🟢 常规</span>
+        <div><strong>确认分娩医院及入院流程</strong><br><small>2027年2月 | 孕37周前</small></div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="todo19" onchange="saveChecklist()">
+        <span class="normal-tag">🟢 常规</span>
+        <div><strong>办理少儿医保</strong><br><small>出生后90天内 | 不要错过追溯报销窗口期</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:10px">
+    <button onclick="resetChecklist()" style="padding:8px 20px;background:#e74c3c;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.85rem">重置所有勾选</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<footer class="footer">
+  <p>孕期行动计划 — 杭州版 | 末次月经：2026年5月31日 | 预产期：2027年3月7日</p>
+  <p>本页面仅供参考，具体医疗决策请遵医嘱。如需更新信息，请以浙里办APP及医院最新通知为准。</p>
+</footer>
+
+<script>
+// ===== Tab Switching =====
+document.querySelectorAll('#tabNav button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#tabNav button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    // Scroll to top of content
+    window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop + 48, behavior: 'smooth' });
+  });
+});
+
+// ===== Checklist persistence =====
+function saveChecklist() {
+  const state = {};
+  for (let i = 1; i <= 19; i++) {
+    state['todo' + i] = document.getElementById('todo' + i).checked;
+  }
+  localStorage.setItem('pregnancy_checklist', JSON.stringify(state));
+}
+
+function loadChecklist() {
+  const saved = localStorage.getItem('pregnancy_checklist');
+  if (saved) {
+    const state = JSON.parse(saved);
+    for (let i = 1; i <= 19; i++) {
+      const el = document.getElementById('todo' + i);
+      if (el && state['todo' + i] !== undefined) {
+        el.checked = state['todo' + i];
+      }
+    }
+  }
+}
+
+function resetChecklist() {
+  if (confirm('确定要重置所有待办项的勾选状态吗？')) {
+    for (let i = 1; i <= 19; i++) {
+      document.getElementById('todo' + i).checked = false;
+    }
+    localStorage.removeItem('pregnancy_checklist');
+  }
+}
+
+// Load saved checklist on page load
+loadChecklist();
+</script>
+
+</body>
+</html>
