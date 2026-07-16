@@ -97,6 +97,26 @@ tr:hover{background:#eaf2f8}
 .section-title{font-size:1.1rem;font-weight:700;color:#1a5276;margin:16px 0 10px;padding-bottom:6px;border-bottom:2px solid #2e86c1}
 .section-subtitle{font-size:0.9rem;font-weight:600;color:#555;margin:10px 0 6px}
 
+/* ===== Doctor Recommendations ===== */
+.doc-section{margin:10px 0;border:1px solid #d6e4f0;border-radius:8px;overflow:hidden}
+.doc-section-header{background:#e8f1fa;padding:10px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:0.9rem;color:#1a5276}
+.doc-section-header:hover{background:#d6e8f7}
+.doc-section-header .arrow{transition:transform 0.2s;font-size:0.8rem}
+.doc-section-header.open .arrow{transform:rotate(90deg)}
+.doc-section-body{display:none;padding:10px 14px;background:#fff}
+.doc-section-body.open{display:block}
+.doc-hospital{margin-bottom:10px}
+.doc-hospital h5{font-size:0.85rem;color:#2e86c1;margin-bottom:6px;padding-bottom:4px;border-bottom:1px dashed #d6e4f0}
+.doc-card{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #f0f4f8;align-items:flex-start}
+.doc-card:last-child{border-bottom:none}
+.doc-name{font-weight:700;font-size:0.85rem;color:#333;min-width:60px}
+.doc-title{font-size:0.75rem;color:#fff;background:#2e86c1;padding:1px 6px;border-radius:8px;white-space:nowrap}
+.doc-title.deputy{background:#27ae60}
+.doc-info{flex:1;font-size:0.8rem;color:#555;line-height:1.5}
+.doc-info .doc-review{color:#666;font-style:italic;background:#fafafa;padding:4px 8px;border-radius:4px;margin-top:3px;display:block}
+.doc-info .doc-tip{color:#c0392b;font-size:0.75rem;margin-top:2px;display:block}
+.doc-info .doc-skill{color:#1a5276;font-size:0.78rem}
+
 /* ===== Footer ===== */
 .footer{text-align:center;padding:24px;font-size:0.8rem;color:#999}
 
@@ -152,6 +172,7 @@ tr:hover{background:#eaf2f8}
   <button data-tab="tab8"><span class="tab-icon">📊</span>医院对比</button>
   <button data-tab="tab9"><span class="tab-icon">🔬</span>四维彩超</button>
   <button data-tab="tab10"><span class="tab-icon">📊</span>孕周表</button>
+  <button data-tab="tab11"><span class="tab-icon">⚕️</span>医生推荐</button>
 </nav>
 
 <!-- ===== Main Content ===== -->
@@ -909,6 +930,602 @@ tr:hover{background:#eaf2f8}
 
 </div>
 
+<!-- ============ TAB 11: 医生推荐 ============ -->
+<div class="tab-content" id="tab11">
+
+  <div class="alert alert-info">
+    <strong>⚕️ 杭州产科医生推荐</strong><br>
+    按产检关键节点整理，覆盖省妇保、市妇保、邵逸夫等主要医院。<br>
+    信息来源：小红书、好大夫、春雨医生等平台的真实用户口碑。
+  </div>
+
+  <div class="card">
+    <div class="card-header">⚕️ 按产检节点医生推荐</div>
+    <div class="card-body">
+
+      <!-- 孕6-8周：首次B超确认妊娠 -->
+      <div class="doc-section">
+        <div class="doc-section-header" onclick="toggleDocSection(this)">
+          <span>🔴 孕6-8周 · 首次B超确认妊娠（早孕评估）</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="doc-section-body">
+          <div class="doc-hospital">
+            <h5>🏥 省妇保（浙大妇院）</h5>
+            <div class="doc-card">
+              <span class="doc-name">白晓霞</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：高危孕产妇救治、妊娠期系统保健、营养指导</div>
+                <span class="doc-review">“白医生非常耐心，解释详细，对早孕期的各种问题都能给出专业建议，小红书口碑极好”</span>
+                <span class="doc-tip">⚠️ 号源紧张，建议提前1-2周通过微信公众号预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">韩秀君</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：妇产科常见病诊治，手术技巧娴熟，术后恢复快</div>
+                <span class="doc-review">“韩医生看病经验丰富，诊断准确，对早孕期出血、腹痛等问题的处理非常到位”</span>
+                <span class="doc-tip">⚠️ 专家门诊号源较紧，建议提前1周预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">苏畅</span>
+              <span class="doc-title deputy">副主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：高危产科、产前诊断、保胎、再生育评估</div>
+                <span class="doc-review">“苏医生语言平实，耐心解答，对保胎和先兆流产的处理很专业，春雨评分9.9”</span>
+                <span class="doc-tip">⚠️ 号源相对宽松，可线上问诊后决定是否需要面诊</span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-hospital">
+            <h5>🏥 市妇保（杭州市妇产科医院）</h5>
+            <div class="doc-card">
+              <span class="doc-name">胡文胜</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：围产医学、优生优育、产前诊断、胎儿医学</div>
+                <span class="doc-review">“胡医生是产科主任，围产领域权威，问诊细致，好评率高”</span>
+                <span class="doc-tip">⚠️ 专家号较难挂，建议提前2周预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">潘永苗</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：妇产科及生殖内分泌，早产、难产、妊娠糖尿病</div>
+                <span class="doc-review">“潘医生问诊细致，对早孕期的各种问题解释清晰，在线问诊响应快”</span>
+                <span class="doc-tip">⚠️ 已开通在线问诊，可先线上咨询再决定面诊</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">安红敏</span>
+              <span class="doc-title deputy">副主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：早、中、晚期妊娠的孕妇监护和管理，妊娠并发症处理</div>
+                <span class="doc-review">“安医生对孕期全程管理很有经验，早孕期建档、保胎都很专业”</span>
+                <span class="doc-tip">⚠️ 号源较充裕，可线上问诊（20元起）</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 孕11-13周+6：NT检查 -->
+      <div class="doc-section">
+        <div class="doc-section-header" onclick="toggleDocSection(this)">
+          <span>🟡 孕11-13周+6 · NT检查 + 早唐筛查</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="doc-section-body">
+          <div class="doc-hospital">
+            <h5>🏥 省妇保超声科（省级产前超声诊断中心）</h5>
+            <div class="doc-card">
+              <span class="doc-name">秦佳乐</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：胎儿早孕期NT筛查、中孕期畸形诊断、生长评估</div>
+                <span class="doc-review">“秦医生做NT非常仔细，图像清晰，解释专业，小红书NT检查首选推荐”</span>
+                <span class="doc-tip">⚠️ NT检查需提前2-3周预约，时间窗口严格（11-13周+6）</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">周一敏</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：各种胎儿畸形产前超声诊断、胎儿心脏超声、早孕筛查</div>
+                <span class="doc-review">“周医生在胎儿心脏超声方面特别专业，早孕筛查经验丰富”</span>
+                <span class="doc-tip">⚠️ 号源紧张，建议建小卡时就预约NT</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">姚维妙</span>
+              <span class="doc-title deputy">副主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：各种胎儿畸形尤其是复杂性先天性心脏病的产前超声诊断</div>
+                <span class="doc-review">“姚医生看胎儿心脏特别准，如果NT值偏高后续心脏筛查找她”</span>
+                <span class="doc-tip">⚠️ 号源中等，可配合NT检查同步预约</span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-hospital">
+            <h5>🏥 市妇保（杭州市妇产科医院）</h5>
+            <div class="doc-card">
+              <span class="doc-name">张艳珍</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：胎儿医学、产前诊断、遗传咨询、优生优育</div>
+                <span class="doc-review">“张医生是产前诊断中心主任，NT异常后续咨询找她最合适”</span>
+                <span class="doc-tip">⚠️ 建议NT检查后如有异常，挂她的号做遗传咨询</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">吴虹</span>
+              <span class="doc-title deputy">副主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：优生优育、产前诊断、孕期保健、产前遗传咨询</div>
+                <span class="doc-review">“吴医生问诊耐心，对NT结果的解释很清晰，适合初次筛查后的咨询”</span>
+                <span class="doc-tip">⚠️ 号源相对宽松，可线上问诊</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">胡文胜</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：围产医学、产前诊断、胎儿医学、妊娠并发症</div>
+                <span class="doc-review">“胡医生对NT异常的处理很有经验，会综合评估是否需要进一步检查”</span>
+                <span class="doc-tip">⚠️ 专家号较难挂，建议提前预约</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 孕15-20周：唐筛/无创DNA -->
+      <div class="doc-section">
+        <div class="doc-section-header" onclick="toggleDocSection(this)">
+          <span>🟡 孕15-20周 · 唐筛 / 无创DNA（NIPT）</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="doc-section-body">
+          <div class="doc-hospital">
+            <h5>🏥 省妇保</h5>
+            <div class="doc-card">
+              <span class="doc-name">王正平</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：围产医学、胎儿医学、产前筛查、产前诊断、出生缺陷防控</div>
+                <span class="doc-review">“王教授对唐筛高危结果的解释非常专业，会帮你分析是否需要无创或羊穿”</span>
+                <span class="doc-tip">⚠️ 专家号紧张，建议提前1-2周预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">金帆</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：产前诊断、产前胎儿遗传学检查、出生缺陷防控</div>
+                <span class="doc-review">“金教授是遗传学专家，如果唐筛异常需要做遗传咨询，首选他”</span>
+                <span class="doc-tip">⚠️ 号源紧张，适合唐筛结果异常后的专科咨询</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">俞颖</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：围产医学、胎儿医学、孕前咨询、复发性流产</div>
+                <span class="doc-review">“俞医生对胎儿发育评估很专业，春雨评分9.7，问诊细致”</span>
+                <span class="doc-tip">⚠️ 号源中等，可线上问诊（200元）</span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-hospital">
+            <h5>🏥 市妇保</h5>
+            <div class="doc-card">
+              <span class="doc-name">张艳珍</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：胎儿医学、产前诊断、遗传咨询、优生优育</div>
+                <span class="doc-review">“张医生是产前诊断中心主任，无创DNA结果解读非常专业”</span>
+                <span class="doc-tip">⚠️ 建议唐筛异常或做无创DNA后找她咨询</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">潘永苗</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：妇产科及生殖内分泌，早产、难产、妊娠糖尿病</div>
+                <span class="doc-review">“潘医生对孕中期的各项筛查结果解释清晰，问诊态度好”</span>
+                <span class="doc-tip">⚠️ 已开通在线问诊，可先线上咨询</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">杨焯</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：各种高危妊娠、早产预测及治疗、妊娠合并症</div>
+                <span class="doc-review">“杨医生对高危妊娠的管理很有经验，适合唐筛异常合并其他问题的孕妇”</span>
+                <span class="doc-tip">⚠️ 号源较充裕，可线上问诊（100元起）</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 孕20-24周：大排畸 -->
+      <div class="doc-section">
+        <div class="doc-section-header" onclick="toggleDocSection(this)">
+          <span>🔴 孕20-24周 · 大排畸（系统超声筛查）</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="doc-section-body">
+          <div class="doc-hospital">
+            <h5>🏥 省妇保超声科（浙江省产前超声诊断会诊中心）</h5>
+            <div class="doc-card">
+              <span class="doc-name">姚维妙</span>
+              <span class="doc-title deputy">副主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：各种胎儿畸形尤其是复杂性先天性心脏病的产前超声诊断</div>
+                <span class="doc-review">“姚医生看胎儿心脏特别准，大排畸发现问题后找她复查最放心”</span>
+                <span class="doc-tip">⚠️ 大排畸需提前1个月预约！号源非常紧张</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">应伟雯</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：妇科肿瘤和各种胎儿畸形的诊断</div>
+                <span class="doc-review">“应主任做超声非常仔细，对疑难病例的诊断水平很高”</span>
+                <span class="doc-tip">⚠️ 专家号紧张，建议建大卡时同步预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">周一敏</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：各种胎儿畸形产前超声诊断、胎儿心脏超声</div>
+                <span class="doc-review">“周医生在胎儿结构筛查方面经验丰富，大排畸看得很仔细”</span>
+                <span class="doc-tip">⚠️ 建议提前3-4周预约大排畸超声</span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-hospital">
+            <h5>🏥 市妇保</h5>
+            <div class="doc-card">
+              <span class="doc-name">张艳珍</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：胎儿医学、产前诊断、胎儿异常的诊断与处理</div>
+                <span class="doc-review">“张医生对大排畸结果异常的处理很有经验，会给出明确的后续建议”</span>
+                <span class="doc-tip">⚠️ 建议大排畸后如有异常，挂她的号做详细咨询</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">胡文胜</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：围产医学、产前诊断、胎儿医学</div>
+                <span class="doc-review">“胡医生对胎儿发育评估很专业，大排畸结果解读清晰”</span>
+                <span class="doc-tip">⚠️ 专家号较难挂，建议提前预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">何佩</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：围产期保健、各种高危妊娠诊治、产科危重症救治</div>
+                <span class="doc-review">“何医生对大排畸异常后的孕期管理很有经验，处理果断”</span>
+                <span class="doc-tip">⚠️ 号源中等，建议提前1周预约</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 孕24-28周：糖耐量测试 -->
+      <div class="doc-section">
+        <div class="doc-section-header" onclick="toggleDocSection(this)">
+          <span>🔴 孕24-28周 · 糖耐量测试（OGTT）/ 妊娠糖尿病管理</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="doc-section-body">
+          <div class="doc-hospital">
+            <h5>🏥 省妇保</h5>
+            <div class="doc-card">
+              <span class="doc-name">陈丹青</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：妊娠合并内分泌疾病，妊娠期糖尿病、妊娠合并甲亢（糖耐管理专家）</div>
+                <span class="doc-review">“陈教授是杭州妊娠糖尿病领域最权威的专家，小红书/春雨评分9.9，糖耐不过必找她”</span>
+                <span class="doc-tip">⚠️ 号源非常紧张，建议提前2-3周预约，也可线上问诊（200元）</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">何赛男</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：妊娠期肝内胆汁淤积症、妊娠期糖尿病，手术技巧娴熟</div>
+                <span class="doc-review">“何医生对妊娠糖尿病的饮食管理很有经验，讲解细致，春雨评分10.0”</span>
+                <span class="doc-tip">⚠️ 号源较紧张，建议提前1-2周预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">徐建云</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：妊娠期保健、营养管理、各种妊娠期并发症</div>
+                <span class="doc-review">“徐医生对孕期营养管理和血糖控制很有经验，问诊耐心”</span>
+                <span class="doc-tip">⚠️ 号源中等，可线上问诊</span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-hospital">
+            <h5>🏥 市妇保营养门诊（妊娠期糖尿病专科）</h5>
+            <div class="doc-card">
+              <span class="doc-name">王小华</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：孕产妇营养，妊娠期糖尿病、妊娠合并肥胖、体重管理</div>
+                <span class="doc-review">“王医生是市妇保营养门诊主任，糖耐不过后的饮食指导非常专业，会制定个性化食谱”</span>
+                <span class="doc-tip">⚠️ 建议糖耐结果出来后挂营养门诊</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">汪旭虹</span>
+              <span class="doc-title deputy">副主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：围产期营养、医学营养减重、妊娠期糖尿病一日门诊</div>
+                <span class="doc-review">“汪医生的妊娠期糖尿病一日门诊非常实用，手把手教控糖”</span>
+                <span class="doc-tip">⚠️ 每周三下午特需门诊，号源中等</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">陈晓雯</span>
+              <span class="doc-title deputy">副主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：妊娠期糖尿病、妊娠合并高血压、体重异常的个性化营养治疗</div>
+                <span class="doc-review">“陈医生对孕期体重管理和营养指导很专业，适合糖耐异常后的长期管理”</span>
+                <span class="doc-tip">⚠️ 号源较充裕</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 孕28-32周：小排畸 -->
+      <div class="doc-section">
+        <div class="doc-section-header" onclick="toggleDocSection(this)">
+          <span>🟢 孕28-32周 · 小排畸（晚期畸形筛查）</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="doc-section-body">
+          <div class="doc-hospital">
+            <h5>🏥 省妇保超声科</h5>
+            <div class="doc-card">
+              <span class="doc-name">苏继莲</span>
+              <span class="doc-title deputy">副主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：胎儿畸形超声诊断、妇科超声、盆底超声</div>
+                <span class="doc-review">“苏医生做小排畸很仔细，对胎儿各系统的筛查都很到位”</span>
+                <span class="doc-tip">⚠️ 小排畸需提前预约，建议孕26周左右预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">钱越</span>
+              <span class="doc-title deputy">副主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：妇产科疑难病症超声诊断，系统掌握产前超声诊断</div>
+                <span class="doc-review">“钱医生对疑难病例的超声诊断经验丰富，小排畸看得很仔细”</span>
+                <span class="doc-tip">⚠️ 号源中等</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">许剑萍</span>
+              <span class="doc-title deputy">副主任技师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：胎儿先天畸形产前筛查的超声诊断</div>
+                <span class="doc-review">“许医生做超声操作规范，对胎儿发育评估很专业”</span>
+                <span class="doc-tip">⚠️ 号源较充裕</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 孕33-36周：产前检查/GBS -->
+      <div class="doc-section">
+        <div class="doc-section-header" onclick="toggleDocSection(this)">
+          <span>🟡 孕33-36周 · 产前检查 / B族链球菌筛查</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="doc-section-body">
+          <div class="doc-hospital">
+            <h5>🏥 省妇保</h5>
+            <div class="doc-card">
+              <span class="doc-name">贺晶</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：产科临床、胎儿医学，一体化门诊专家</div>
+                <span class="doc-review">“贺教授是省妇保产科大咖，对孕晚期的评估非常全面，一体化门诊推荐”</span>
+                <span class="doc-tip">⚠️ 号源非常紧张，一体化门诊600元/次</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">白晓霞</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：高危孕产妇救治、妊娠期系统保健、营养指导</div>
+                <span class="doc-review">“白医生对孕晚期的管理很有经验，会关注胎动、胎位等细节”</span>
+                <span class="doc-tip">⚠️ 号源紧张，建议提前1-2周预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">梁朝霞</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：各类高危妊娠诊治，妊娠期糖尿病、高血压、前置胎盘</div>
+                <span class="doc-review">“梁医生临床实战能力强，对孕晚期各种并发症的处理很有经验”</span>
+                <span class="doc-tip">⚠️ 号源较紧张，建议提前预约</span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-hospital">
+            <h5>🏥 市妇保</h5>
+            <div class="doc-card">
+              <span class="doc-name">何佩</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：围产期保健、各种高危妊娠诊治、产科危重症救治</div>
+                <span class="doc-review">“何医生对孕晚期的评估很全面，分娩方式建议专业”</span>
+                <span class="doc-tip">⚠️ 号源中等，建议提前1周预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">杨焯</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：各种高危妊娠、早产预测及治疗、妊娠合并症</div>
+                <span class="doc-review">“杨医生对孕晚期的早产预防和高危管理很有经验”</span>
+                <span class="doc-tip">⚠️ 可线上问诊，号源较充裕</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">温海燕</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：产科危重症、妊娠合并症、崇尚自然分娩</div>
+                <span class="doc-review">“温医生对孕晚期的产程评估和分娩方式选择很有经验”</span>
+                <span class="doc-tip">⚠️ 号源较充裕，可线上问诊（50元起）</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 孕37周：足月评估 -->
+      <div class="doc-section">
+        <div class="doc-section-header" onclick="toggleDocSection(this)">
+          <span>🟢 孕37周 · 足月评估 / 分娩方式评估</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="doc-section-body">
+          <div class="doc-hospital">
+            <h5>🏥 省妇保</h5>
+            <div class="doc-card">
+              <span class="doc-name">杨小福</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：产前诊断、胎儿医学及妊娠并发症，各种产科困难手术</div>
+                <span class="doc-review">“杨医生对足月评估和分娩方式的选择很专业，手术技术好”</span>
+                <span class="doc-tip">⚠️ 号源紧张，建议提前1-2周预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">何晓红</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：高危产科、产科并发症合并症、胎儿畸形诊断处理</div>
+                <span class="doc-review">“何医生对高危妊娠的足月评估很专业，会综合评估分娩方式”</span>
+                <span class="doc-tip">⚠️ 号源较紧张，可线上问诊（300元）</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">上官雪军</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：妇科、产科疾病的诊治及计划生育</div>
+                <span class="doc-review">“上官医生对孕晚期的评估很全面，对分娩方式的选择给出专业建议”</span>
+                <span class="doc-tip">⚠️ 号源中等</span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-hospital">
+            <h5>🏥 市妇保</h5>
+            <div class="doc-card">
+              <span class="doc-name">张琳</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：产科危急重症处理、产程管理、美容缝合、倡导自然分娩</div>
+                <span class="doc-review">“张医生对分娩方式的选择很专业，倡导自然分娩，手术技术好”</span>
+                <span class="doc-tip">⚠️ 号源中等，建议提前1周预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">孙杨芳</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：常见产科疾病及高危产科处理，产钳助产、臀位助产</div>
+                <span class="doc-review">“孙医生对足月评估很专业，对分娩方式的建议很中肯”</span>
+                <span class="doc-tip">⚠️ 号源较充裕</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">温海燕</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：产科危重症、妊娠合并症、崇尚自然分娩</div>
+                <span class="doc-review">“温医生对自然分娩的支持度很高，会给出专业的产程评估”</span>
+                <span class="doc-tip">⚠️ 可线上问诊，号源较充裕</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 邵逸夫医院 -->
+      <div class="doc-section">
+        <div class="doc-section-header" onclick="toggleDocSection(this)">
+          <span>🏥 邵逸夫医院（综合三甲，备选）</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="doc-section-body">
+          <div class="doc-hospital">
+            <h5>🏥 浙江大学医学院附属邵逸夫医院</h5>
+            <div class="doc-card">
+              <span class="doc-name">梁峰冰</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：产前诊断、遗传咨询、孕前咨询、子痫、产后大出血、羊水栓塞</div>
+                <span class="doc-review">“梁医生在产前诊断和遗传咨询方面很专业，对疑难产科问题的处理经验丰富”</span>
+                <span class="doc-tip">⚠️ 号源较紧张，建议提前预约</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">何超蔓</span>
+              <span class="doc-title">主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：高危妊娠异常分娩、各种妇产科手术及微创手术</div>
+                <span class="doc-review">“何医生手术技术好，对高危妊娠的处理很有经验”</span>
+                <span class="doc-tip">⚠️ 号源中等</span>
+              </div>
+            </div>
+            <div class="doc-card">
+              <span class="doc-name">任延巍</span>
+              <span class="doc-title deputy">副主任医师</span>
+              <div class="doc-info">
+                <div class="doc-skill">擅长：高危妊娠、妊娠期糖尿病、妊娠期高血压、难产处理</div>
+                <span class="doc-review">“任医生对妊娠期代谢性疾病的管理很有经验，问诊耐心”</span>
+                <span class="doc-tip">⚠️ 号源较充裕，适合糖耐异常后的备选咨询</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="alert alert-warning">
+    <strong>📌 挂号提醒</strong><br>
+    • 省妇保：微信公众号“浙江大学医学院附属妇产科医院”预约，专家号建议提前1-2周<br>
+    • 市妇保：微信公众号“杭州市妇产科医院”预约，专家号建议提前1周<br>
+    • 邵逸夫医院：微信公众号“邵逸夫医院”预约<br>
+    • 所有医院均可通过“浙里办”APP或“杭州健康通”APP预约挂号
+  </div>
+
+</div>
+
 </div><!-- /container -->
 
 <footer class="footer">
@@ -1032,6 +1649,13 @@ function generateWeekTable() {
 // Run on page load
 updateWeekDisplay();
 generateWeekTable();
+
+// ===== Doctor Section Toggle =====
+function toggleDocSection(header) {
+  header.classList.toggle('open');
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
 </script>
 
 </body>
