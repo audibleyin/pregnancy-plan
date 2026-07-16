@@ -134,7 +134,7 @@ tr:hover{background:#eaf2f8}
   <div class="info-bar">
     <span>末次月经：<strong>2026年5月31日</strong></span>
     <span>预产期：<strong>2027年3月7日</strong></span>
-    <span>当前孕周：<strong>6周+0天</strong></span>
+    <span>当前孕周：<strong id="headerWeekDisplay">6周+4天</strong></span>
     <span class="badge">⚠️ 尚未领证</span>
   </div>
 </header>
@@ -151,6 +151,7 @@ tr:hover{background:#eaf2f8}
   <button data-tab="tab7"><span class="tab-icon">🏠</span>产房攻略</button>
   <button data-tab="tab8"><span class="tab-icon">📊</span>医院对比</button>
   <button data-tab="tab9"><span class="tab-icon">🔬</span>四维彩超</button>
+  <button data-tab="tab10"><span class="tab-icon">📊</span>孕周表</button>
 </nav>
 
 <!-- ===== Main Content ===== -->
@@ -161,7 +162,7 @@ tr:hover{background:#eaf2f8}
 
   <div class="info-grid" style="margin-bottom:12px">
     <div class="info-item"><div class="label">末次月经</div><div class="value">2026年5月31日</div></div>
-    <div class="info-item"><div class="label">当前孕周</div><div class="value">6周+0天（第7周）</div></div>
+    <div class="info-item"><div class="label">当前孕周</div><div class="value" id="infoGridWeekDisplay">6周+4天（第7周）</div></div>
     <div class="info-item"><div class="label">预产期</div><div class="value">2027年3月7日</div></div>
     <div class="info-item"><div class="label">当前阶段</div><div class="value">孕早期</div></div>
     <div class="info-item"><div class="label">所在城市</div><div class="value">浙江省杭州市</div></div>
@@ -885,6 +886,29 @@ tr:hover{background:#eaf2f8}
 
 </div>
 
+<!-- ============ TAB 10: 孕周对照表 ============ -->
+<div class="tab-content" id="tab10">
+
+  <div class="alert alert-info">
+    <strong>📊 完整孕周对照表</strong><br>
+    基于末次月经 <strong>2026年5月31日</strong>，预产期 <strong>2027年3月7日</strong>（共40周）。<br>
+    当前周次已高亮标注 👇
+  </div>
+
+  <div class="card">
+    <div class="card-header">📅 孕周 1 — 40 周对照表</div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>孕周</th><th>起始日期</th><th>结束日期</th><th>阶段</th><th>备注</th></tr></thead>
+        <tbody id="weekTableBody">
+          <tr><td colspan="5" style="text-align:center">加载中...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
 </div><!-- /container -->
 
 <footer class="footer">
@@ -938,6 +962,76 @@ function resetChecklist() {
 
 // Load saved checklist on page load
 loadChecklist();
+
+// ===== Pregnancy Week Calculation =====
+const LMP_DATE = new Date(2026, 4, 31);
+
+function calcPregnancyWeek() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const diffTime = today.getTime() - LMP_DATE.getTime();
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  const weeks = Math.floor(diffDays / 7);
+  const days = diffDays % 7;
+  const weekNum = weeks + 1;
+  return { weeks, days, weekNum, diffDays };
+}
+
+function updateWeekDisplay() {
+  const { weeks, days, weekNum } = calcPregnancyWeek();
+  const displayText = weeks + '\u5468+' + days + '\u5929';
+  const infoText = weeks + '\u5468+' + days + '\u5929\uff08\u7b2c' + weekNum + '\u5468\uff09';
+  const hd = document.getElementById('headerWeekDisplay');
+  if (hd) hd.textContent = displayText;
+  const ig = document.getElementById('infoGridWeekDisplay');
+  if (ig) ig.textContent = infoText;
+}
+
+function generateWeekTable() {
+  const tbody = document.getElementById('weekTableBody');
+  if (!tbody) return;
+  const { weekNum } = calcPregnancyWeek();
+  const notes = [
+    '\u672b\u6b21\u6708\u7ecf\u5f00\u59cb', '\u8fdb\u5165\u5b55\u65e9\u671f', '\u80da\u80ce\u7740\u5e8a', '\u53ef\u80fd\u9a8c\u5b55\u9633\u6027',
+    '\u80da\u80ce\u5fc3\u810f\u5f00\u59cb\u8df3\u52a8', '\u53ef\u80fd\u770b\u5230\u80ce\u5fc3\u80ce\u82bd', '\u80da\u80ce\u9762\u90e8\u5668\u5b98\u5f62\u6210', '\u80da\u80ce\u957f\u7ea61.6cm',
+    '\u80da\u80ce\u957f\u7ea62.3cm', '\u80da\u80ce\u671f\u7ed3\u675f\uff0c\u8fdb\u5165\u80ce\u513f\u671f', '\u80ce\u513f\u957f\u7ea64-5cm', 'NT\u68c0\u67e5\u7a97\u53e3\u671f',
+    '\u5b55\u65e9\u671f\u6700\u540e\u4e00\u5468', '\u8fdb\u5165\u5b55\u4e2d\u671f', '\u80ce\u513f\u957f\u7ea68-10cm', '\u5f00\u59cb\u611f\u77e5\u80ce\u52a8',
+    '\u80ce\u513f\u542c\u529b\u5f00\u59cb\u53d1\u80b2', '\u5efa\u5927\u5361\u7a97\u53e3\u671f', '\u80ce\u513f\u957f\u7ea615-20cm', '\u5927\u6392\u7578\u7a97\u53e3\u671f',
+    '\u80ce\u513f\u957f\u7ea625cm', '\u80ce\u513f\u5f00\u59cb\u6709\u7761\u7720\u5468\u671f', '\u80ce\u513f\u957f\u7ea628cm', '\u7cd6\u8010\u91cf\u6d4b\u8bd5\u7a97\u53e3\u671f',
+    '\u80ce\u513f\u957f\u7ea630cm', '\u5b55\u4e2d\u671f\u6700\u540e\u4e00\u5468', '\u8fdb\u5165\u5b55\u665a\u671f', '\u5c0f\u6392\u7578\u7a97\u53e3\u671f',
+    '\u80ce\u513f\u957f\u7ea635cm', '\u80ce\u52a8\u8ba1\u6570\u975e\u5e38\u91cd\u8981', '\u80ce\u513f\u4f53\u91cd\u7ea61.5kg', '\u80ce\u513f\u5934\u4f4d\u8c03\u6574',
+    '\u80ce\u513f\u957f\u7ea640cm', 'B\u65cf\u94fe\u7403\u83cc\u7b5b\u67e5', '\u80ce\u513f\u4f53\u91cd\u7ea62.3kg', '\u80ce\u513f\u80ba\u90e8\u53d1\u80b2\u63a5\u8fd1\u6210\u719f',
+    '\u8db3\u6708\u8bc4\u4f30', '\u80ce\u513f\u5df2\u8db3\u6708', '\u968f\u65f6\u53ef\u80fd\u53d1\u52a8', '\u9884\u4ea7\u671f'
+  ];
+  const trimesters = [
+    '\u5b55\u65e9\u671f','\u5b55\u65e9\u671f','\u5b55\u65e9\u671f','\u5b55\u65e9\u671f','\u5b55\u65e9\u671f',
+    '\u5b55\u65e9\u671f','\u5b55\u65e9\u671f','\u5b55\u65e9\u671f','\u5b55\u65e9\u671f','\u5b55\u65e9\u671f',
+    '\u5b55\u65e9\u671f','\u5b55\u65e9\u671f','\u5b55\u65e9\u671f',
+    '\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f',
+    '\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f',
+    '\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f','\u5b55\u4e2d\u671f',
+    '\u5b55\u665a\u671f','\u5b55\u665a\u671f','\u5b55\u665a\u671f','\u5b55\u665a\u671f','\u5b55\u665a\u671f',
+    '\u5b55\u665a\u671f','\u5b55\u665a\u671f','\u5b55\u665a\u671f','\u5b55\u665a\u671f','\u5b55\u665a\u671f',
+    '\u5b55\u665a\u671f','\u5b55\u665a\u671f','\u5b55\u665a\u671f'
+  ];
+  let html = '';
+  for (let w = 1; w <= 40; w++) {
+    const startDate = new Date(LMP_DATE);
+    startDate.setDate(startDate.getDate() + (w - 1) * 7);
+    const endDate = new Date(LMP_DATE);
+    endDate.setDate(endDate.getDate() + w * 7 - 1);
+    const isCurrent = w === weekNum;
+    const fmt = function(d) { return (d.getMonth() + 1) + '\u6708' + d.getDate() + '\u65e5'; };
+    const rowClass = isCurrent ? ' class="row-urgent"' : '';
+    const note = isCurrent ? '\ud83d\udc48 \u5f53\u524d\u5b55\u5468' : notes[w - 1];
+    html += '<tr' + rowClass + '><td><strong>\u7b2c' + w + '\u5468</strong></td><td>' + fmt(startDate) + '</td><td>' + fmt(endDate) + '</td><td>' + trimesters[w - 1] + '</td><td>' + note + '</td></tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+// Run on page load
+updateWeekDisplay();
+generateWeekTable();
 </script>
 
 </body>
